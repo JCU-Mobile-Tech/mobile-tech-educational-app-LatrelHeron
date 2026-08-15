@@ -1,11 +1,14 @@
 package com.example.assessment3.ui.activity
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.domain.logic.QuestionGenerator
 import com.example.assessment3.domain.logic.ScoreCalculator
 import com.example.assessment3.domain.model.Question
 import com.example.assessment3.domain.model.QuestionType
 import com.example.assessment3.domain.model.QuizResult
+import kotlinx.coroutines.launch
 
 data class ActivityUiState(
     val questions: List<Question> = emptyList(),
@@ -22,11 +25,14 @@ data class ActivityUiState(
         get() = questions.getOrNull(currentQuestionIndex)
 }
 
-class ActivityViewModel : ViewModel()
+class ActivityViewModel(
+    private val quizRepository: QuizRepository
+) : ViewModel()
 {
     var uiState = androidx.compose.runtime.mutableStateOf(
         ActivityUiState(
-            questions = QuestionGenerator.generateSession()
+            val sessionSaved: Boolean = false
+                questions = QuestionGenerator.generateSession()
         )
     )
         private set
@@ -61,8 +67,20 @@ class ActivityViewModel : ViewModel()
         val state = uiState.value
         if (state.currentQuestionIndex >= state.questions.lastIndex)
         {
+            if (!state.sessionSaved)
+            {
+                viewModelScope.launch
+                {
+                    quizRepository.saveAttempt(
+                        totalCorrect = state.totalCorrect,
+                        multiplicationCorrect = state.multiplcationCorrect,
+                        divisionCorrect = state.divisionCorrect
+                    )
+                }
+            }
             uiState.value = state.copy(
-                quizFinished = true
+                quizFinished = true,
+                sessionSaved = true
             )
         }
         else
