@@ -20,10 +20,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.domain.model.QuizResult
 
 @Composable
-fun ActivityScreen(viewModel: ActivityViewModel = viewModel()) {
+fun ActivityScreen(
+    quizRepository: QuizRepository
+) {
+    val viewModel: ActivityViewModel = viewModel(
+        factory = ActivityViewModel = viewModel(
+            quizRepository = quizRepository
+        )
+    )
     val state = viewModel.uiState.value
     if (state.quizFinished) {
         QuizResultScreen(result = viewModel.getQuizResult())
