@@ -179,6 +179,45 @@ fun StatisticsScreen(    quizRepository: QuizRepository
             Text("Reset Progress")
         }
     }
+    if (showResetDialog) {
+
+        AlertDialog(
+            onDismissRequest = {
+                showResetDialog = false
+            },
+
+            title = {
+                Text("Reset Progress?")
+            },
+
+            text = {
+                Text(
+                    "This will permanently delete all completed sessions, accuracy statistics and rank progress."
+                )
+            },
+
+            confirmButton = {
+                Button(
+                    onClick = {
+                        viewModel.resetProgress()
+                        showResetDialog = false
+                    }
+                ) {
+                    Text("Reset")
+                }
+            },
+
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showResetDialog = false
+                    }
+                ) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
 }
 @Composable
 private fun StatCard(
