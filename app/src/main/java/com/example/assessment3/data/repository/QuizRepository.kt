@@ -1,5 +1,9 @@
 package com.example.assessment3.data.repository
 
+import com.example.assessment3.data.local.QuizAttemptDao
+import com.example.assessment3.data.local.entities.QuizAttemptEntity
+import kotlinx.coroutines.flow.Flow
+
 class QuizRepository(
     private val quizAttemptDao: QuizAttemptDao
 ) {
