@@ -1,6 +1,8 @@
 package com.example.assessment3.domain.logic
 
-import Assessment3.package.
+import com.example.assessment3.domain.model.Question
+import com.example.assessment3.domain.model.QuestionType
+
 
 object QuestionGenerator
 {
