@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.assessment3.ui.navigation.AppNavGraph
 import com.example.assessment3.ui.theme.Assessment3Theme
+import com.example.assessment3.Assessment3Application
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +24,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             Assessment3Theme {
                 val navController = rememberNavController()
+                val app = application as Assessment3Application
 
                 AppNavGraph(
-                    navController = navController
+                    navController = navController,
+                    quizRepository = app.controller.quizRepository
                 )
 
             }
