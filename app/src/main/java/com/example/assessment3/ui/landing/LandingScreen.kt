@@ -36,8 +36,8 @@ fun LandingScreen(
         )
     )
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
-    {
-        Column( modifier = Modifier.fillMaxWidth().padding(24.dp))
+
+        Column(modifier = Modifier.fillMaxWidth().padding(24.dp))
         {
             Text( text = "Maths Practice", fontSize = 30.sp, fontWeight = FontWeight.Bold)
             Text( text = "Build your number skills", fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -93,7 +93,6 @@ fun LandingScreen(
         Spacer(modifier = Modifier.height(32.dp))
         Row( modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly )
         {
-            Button(onClick = onStartActivity) { Text("Start Activity") }
             Button(onClick = onOpenStatistics) { Text("Statistics") }
             Button(onClick = onOpenSettings) { Text("Settings") }
         }
