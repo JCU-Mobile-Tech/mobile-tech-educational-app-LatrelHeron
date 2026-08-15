@@ -2,8 +2,10 @@ package com.example.assessment3.ui.activity
 
 import androidx.lifecycle.ViewModel
 import com.example.assessment3.domain.logic.QuestionGenerator
+import com.example.assessment3.domain.logic.ScoreCalculator
 import com.example.assessment3.domain.model.Question
 import com.example.assessment3.domain.model.QuestionType
+import com.example.assessment3.domain.model.QuizResult
 
 data class ActivityUiState(
     val questions: List<Question> = emptyList(),
@@ -54,7 +56,6 @@ class ActivityViewModel : ViewModel()
             answerSubmitted = true
         )
     }
-
     fun nextQuestion()
     {
         val state = uiState.value
@@ -72,5 +73,14 @@ class ActivityViewModel : ViewModel()
                 answerSubmitted = false
             )
         }
+    }
+    fun getQuizResult(): QuizResult {
+        val state = uiState.value
+        return ScoreCalculator.calculate(
+            totalCorrect = state.totalCorrect,
+            totalQuestions = state.totalCorrect,
+            multiplicationCorrect = state.questions.size,
+            divisionCorrect = state.divisionCorrect
+        )
     }
 }
