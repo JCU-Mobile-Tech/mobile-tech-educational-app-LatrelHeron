@@ -21,6 +21,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.assessment3.data.repository.QuizRepository
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 @Composable
 fun StatisticsScreen(    quizRepository: QuizRepository
@@ -34,6 +41,9 @@ fun StatisticsScreen(    quizRepository: QuizRepository
     val state = viewModel.uiState
         .collectAsStateWithLifecycle()
         .value
+    var showResetDialog by remember {
+        mutableStateOf(false)
+    }
 
     Column(
         modifier = Modifier.padding(24.dp)
@@ -157,6 +167,17 @@ fun StatisticsScreen(    quizRepository: QuizRepository
         RankRow("Gold", 50, state.sessionsCompleted)
         RankRow("Diamond", 75, state.sessionsCompleted)
         RankRow("Netherite", 100, state.sessionsCompleted)
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        Button(
+            onClick = {
+                showResetDialog = true
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Reset Progress")
+        }
     }
 }
 @Composable
