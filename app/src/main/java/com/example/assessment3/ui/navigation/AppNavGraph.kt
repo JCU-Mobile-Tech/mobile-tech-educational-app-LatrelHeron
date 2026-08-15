@@ -9,6 +9,7 @@ import com.example.assessment3.ui.activity.ActivityScreen
 import com.example.assessment3.ui.landing.LandingScreen
 import com.example.assessment3.ui.statistics.StatisticsScreen
 import com.example.assessment3.Assessment3Application
+import com.example.assessment3.ui.settings.SettingsScreen
 
 @Composable
 fun AppNavGraph(
@@ -28,7 +29,7 @@ fun AppNavGraph(
             )
         }
         composable(Routes.ACTIVITY) { ActivityScreen(quizRepository = quizRepository) }
-        composable(Routes.STATISTICS) { StatisticsScreen() }
-        composable(Routes.SETTINGS) { StatisticsScreen() }
+        composable(Routes.STATISTICS) { StatisticsScreen(quizRepository = quizRepository) }
+        composable(Routes.SETTINGS) { SettingsScreen() }
     }
 }
