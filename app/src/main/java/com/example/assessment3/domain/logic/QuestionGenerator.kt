@@ -47,10 +47,12 @@ object QuestionGenerator
     private fun generateOptions(correctAnswer: Int): List<Int>
     {
         val answers = mutableSetOf(correctAnswer)
-        while (answers.size < 4) {
+        while (answers.size < 4)
+        {
             val offset = (-10..10).random()
             val option = correctAnswer + offset
-            if (option > 0) {
+            if (option > 0)
+            {
                 answers.add(option)
             }
         }
