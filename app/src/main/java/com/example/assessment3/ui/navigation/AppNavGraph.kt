@@ -4,13 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.ui.activity.ActivityScreen
 import com.example.assessment3.ui.landing.LandingScreen
 import com.example.assessment3.ui.statistics.StatisticsScreen
+import com.example.assessment3.Assessment3Application
 
 @Composable
 fun AppNavGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    quizRepository: QuizRepository
 ) {
     NavHost(
         navController = navController,
@@ -23,7 +26,7 @@ fun AppNavGraph(
                 onOpenSettings = { navController.navigate(Routes.SETTINGS)}
             )
         }
-        composable(Routes.ACTIVITY) { ActivityScreen() }
+        composable(Routes.ACTIVITY) { ActivityScreen(quizRepository = quizRepository) }
         composable(Routes.STATISTICS) { StatisticsScreen() }
         composable(Routes.SETTINGS) { StatisticsScreen() }
     }
