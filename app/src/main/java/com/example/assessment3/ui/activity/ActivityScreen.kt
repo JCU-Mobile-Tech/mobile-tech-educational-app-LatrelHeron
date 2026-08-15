@@ -20,12 +20,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.assessment3.domain.model.QuizResult
 
 @Composable
 fun ActivityScreen(viewModel: ActivityViewModel = viewModel()) {
     val state = viewModel.uiState.value
     if (state.quizFinished) {
-        QuizResultScreen(state)
+        QuizResultScreen(result = viewModel.getQuizResult())
         return
     }
     val question = state.currentQuestion ?: return
@@ -103,13 +104,9 @@ fun ActivityScreen(viewModel: ActivityViewModel = viewModel()) {
 }
 
 @Composable
-fun QuizResultScreen(state: ActivityUiState) {
-    val totalQuestions = state.questions.size
-    val overallAccuracy =
-        if (totalQuestions == 0) 0
-        else (state.totalCorrect * 100) / totalQuestions
-    val multiplicationAccuracy = if (totalQuestions == 0) 0 else (state.multiplicationCorrect * 100) / 5
-    val divisionAccuracy = if (totalQuestions == 0) 0 else (state.divisionCorrect * 100) / 5
+private fun QuizResultScreen(
+    result: QuizResult
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -117,23 +114,55 @@ fun QuizResultScreen(state: ActivityUiState) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Practice Complete!", fontSize = 30.sp, fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(24.dp))
+
         Text(
-            text = "${state.totalCorrect} / $totalQuestions",
+            text = "Practice Complete!",
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "${result.totalCorrect} / ${result.totalQuestions}",
             fontSize = 48.sp,
             fontWeight = FontWeight.Bold
         )
-        Text(text = "$overallAccuracy% Overall Accuracy", fontSize = 20.sp)
+
+        Text(
+            text = "${result.overallAccuracy}% Overall Accuracy",
+            fontSize = 20.sp
+        )
+
         Spacer(modifier = Modifier.height(32.dp))
-        Card(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.padding(20.dp)) {
-                Text(text = "Session Breakdown", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.padding(20.dp)
+            ) {
+                Text(
+                    text = "Session Breakdown",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("Multiplication: ${state.multiplicationCorrect}/5 ($multiplicationAccuracy%)")
+
+                Text(
+                    text = "Multiplication: ${result.multiplicationCorrect}/5 " +
+                            "(${result.multiplicationAccuracy}%)"
+                )
+
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Division: ${state.divisionCorrect}/5 ($divisionAccuracy%)")
+
+                Text(
+                    text = "Division: ${result.divisionCorrect}/5 " +
+                            "(${result.divisionAccuracy}%)"
+                )
             }
         }
     }
 }
+

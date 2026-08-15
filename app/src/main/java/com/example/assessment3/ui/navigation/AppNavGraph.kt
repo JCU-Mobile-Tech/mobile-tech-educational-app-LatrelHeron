@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.assessment3.ui.activity.ActivityScreen
 import com.example.assessment3.ui.landing.LandingScreen
+import com.example.assessment3.ui.settings.SettingsScreen
 import com.example.assessment3.ui.statistics.StatisticsScreen
 
 @Composable
@@ -23,8 +24,12 @@ fun AppNavGraph(
                 onOpenSettings = { navController.navigate(Routes.SETTINGS)}
             )
         }
-        composable(Routes.ACTIVITY) { ActivityScreen() }
+        composable(Routes.ACTIVITY) { 
+            ActivityScreen(
+                onNavigateHome = { navController.navigate(Routes.LANDING) }
+            ) 
+        }
         composable(Routes.STATISTICS) { StatisticsScreen() }
-        composable(Routes.SETTINGS) { StatisticsScreen() }
+        composable(Routes.SETTINGS) { SettingsScreen() }
     }
 }
