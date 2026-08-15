@@ -6,6 +6,7 @@ import com.example.assessment3.data.repository.QuizRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 data class StatisticsUiState(
     val sessionsCompleted: Int = 0,
@@ -18,7 +19,7 @@ data class StatisticsUiState(
 )
 
 class StatisticsViewModel(
-    quizRepository: QuizRepository
+    private val quizRepository: QuizRepository
 ) : ViewModel() {
 
     val uiState = quizRepository
@@ -75,6 +76,12 @@ class StatisticsViewModel(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = StatisticsUiState()
         )
+
+    fun resetProgress() {
+        viewModelScope.launch {
+            quizRepository.resetProgress()
+        }
+    }
 
     private fun calculateRank(
         sessions: Int
