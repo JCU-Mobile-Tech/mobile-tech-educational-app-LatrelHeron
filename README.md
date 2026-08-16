@@ -66,6 +66,7 @@ The application includes a simple gamified rank system based on the number of co
 The user's current rank and progress towards the next rank are displayed on the Rank screen.
 
 ## All the Ranks that can be achieved:
+The ranks were simulated by changing the val sessions in StatisticsViewModel.kt to the session amount, after getting the screenshots the code was changed back to its val session = attempts.size (tracking real sessions rather then fake sessions).
 
 <p align="center">
 <img src="screenshots/rank_unranked.png" width="220">
