@@ -20,22 +20,92 @@ fun AppNavGraph(
     settingsRepository: SettingsRepository,
     mathFactRepository: MathFactRepository
 ) {
-    NavHost(
-        navController = navController,
-        startDestination = Routes.LANDING
-    ) {
-        composable(Routes.LANDING) {
-            LandingScreen(
-                quizRepository = quizRepository,
-                onStartActivity = { navController.navigate(Routes.ACTIVITY) },
-                onOpenStatistics = { navController.navigate(Routes.STATISTICS) },
-                onOpenSettings = { navController.navigate(Routes.SETTINGS)}
-            )
+    Scaffold(
+        bottomBar = {
+            NavigationBar {
+
+                NavigationBarItem(
+                    selected = false,
+                    onClick = {
+                        navController.navigate(Routes.LANDING)
+                    },
+                    icon = {
+                        Text("🏠")
+                    },
+                    label = {
+                        Text("Home")
+                    }
+                )
+
+                NavigationBarItem(
+                    selected = false,
+                    onClick = {
+                        navController.navigate(Routes.ACTIVITY)
+                    },
+                    icon = {
+                        Text("✏️")
+                    },
+                    label = {
+                        Text("Activity")
+                    }
+                )
+
+                NavigationBarItem(
+                    selected = false,
+                    onClick = {
+                        navController.navigate(Routes.STATISTICS)
+                    },
+                    icon = {
+                        Text("📊")
+                    },
+                    label = {
+                        Text("Progress")
+                    }
+                )
+
+                NavigationBarItem(
+                    selected = false,
+                    onClick = {
+                        navController.navigate(Routes.SETTINGS)
+                    },
+                    icon = {
+                        Text("⚙️")
+                    },
+                    label = {
+                        Text("Settings")
+                    }
+                )
+            }
         }
-        composable(Routes.ACTIVITY) { ActivityScreen(quizRepository = quizRepository,
-            settingsRepository = settingsRepository,
-            mathFactRepository = mathFactRepository) }
-        composable(Routes.STATISTICS) { StatisticsScreen(quizRepository = quizRepository) }
-        composable(Routes.SETTINGS) { SettingsScreen(settingsRepository = settingsRepository) }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = Routes.LANDING
+        ) {
+            composable(Routes.LANDING) {
+                LandingScreen(
+                    quizRepository = quizRepository,
+                    onStartActivity = { navController.navigate(Routes.ACTIVITY) },
+                    onOpenStatistics = { navController.navigate(Routes.STATISTICS) },
+                    onOpenSettings = { navController.navigate(Routes.SETTINGS)}
+                )
+            }
+            composable(Routes.ACTIVITY) { ActivityScreen(quizRepository = quizRepository,
+                settingsRepository = settingsRepository,
+                mathFactRepository = mathFactRepository,
+                onBackHome = {
+                    navController.navigate(Routes.LANDING) {
+                        popUpTo(Routes.LANDING) {
+                            inclusive = false
+                        }
+                    }
+                },
+                onOpenStatistics = {
+                    navController.navigate(Routes.STATISTICS)
+                }) }
+            composable(Routes.STATISTICS) { StatisticsScreen(quizRepository = quizRepository) }
+            composable(Routes.SETTINGS) { SettingsScreen(settingsRepository = settingsRepository) }
+        }
     }
+
 }
