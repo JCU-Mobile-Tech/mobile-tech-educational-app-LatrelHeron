@@ -3,9 +3,11 @@ package com.example.assessment3.ui.landing
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.assessment3.data.repository.QuizRepository
+import com.example.assessment3.data.preferences.SettingsRepository
 
 class LandingViewModelFactory(
-    private val quizRepository: QuizRepository
+    private val quizRepository: QuizRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(
@@ -16,7 +18,8 @@ class LandingViewModelFactory(
 
             @Suppress("UNCHECKED_CAST")
             return LandingViewModel(
-                quizRepository = quizRepository
+                quizRepository = quizRepository,
+                settingsRepository = settingsRepository
             ) as T
         }
 

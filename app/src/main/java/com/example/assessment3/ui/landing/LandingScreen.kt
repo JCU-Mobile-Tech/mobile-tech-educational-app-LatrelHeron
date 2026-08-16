@@ -22,18 +22,21 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.assessment3.data.repository.QuizRepository
+import com.example.assessment3.data.preferences.SettingsRepository
 
 @Composable
 fun LandingScreen(
     quizRepository: QuizRepository,
-    onStartActivity: () -> Unit,
+    settingsRepository: SettingsRepository,
     onOpenStatistics: () -> Unit,
     onOpenSettings: () -> Unit,
+    onStartActivity: () -> Unit,
     onOpenPractice: () -> Unit
 ) {
     val viewModel: LandingViewModel = viewModel(
         factory = LandingViewModelFactory(
-            quizRepository = quizRepository
+            quizRepository = quizRepository,
+            settingsRepository = settingsRepository
         )
     )
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
@@ -72,8 +75,11 @@ fun LandingScreen(
             {
                 Text(text = "×  ÷", fontSize = 38.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Mixed Quiz", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text(text = "${state.difficulty} Quiz", fontSize = 22.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(8.dp))
+                Text( text = "Ready to test your maths skills?",
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center)
                 Text(
                     text = "5 Multiplication - 5 Division",
                     fontSize = 15.sp,
@@ -90,8 +96,18 @@ fun LandingScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) { Text("Start Quiz") }
             }
-                Spacer(modifier = Modifier.height(16.dp))
-
+                Spacer(modifier = Modifier.height(28.dp))
+                Text(
+                    text = "Want a quick warm-up?",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Try 2 practice questions without affecting your score.",
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
                 Button(
                     onClick = onOpenPractice,
                     modifier = Modifier.fillMaxWidth()

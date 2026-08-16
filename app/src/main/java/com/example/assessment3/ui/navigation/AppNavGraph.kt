@@ -125,6 +125,7 @@ fun AppNavGraph(
             composable(Routes.LANDING) {
                 LandingScreen(
                     quizRepository = quizRepository,
+                    settingsRepository = settingsRepository,
                     onStartActivity = { navController.navigate(Routes.ACTIVITY) },
                     onOpenStatistics = { navController.navigate(Routes.STATISTICS) },
                     onOpenSettings = { navController.navigate(Routes.SETTINGS)},

@@ -6,19 +6,24 @@ import com.example.assessment3.data.repository.QuizRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import com.example.assessment3.data.preferences.SettingsRepository
+import kotlinx.coroutines.flow.combine
 
 data class LandingUiState(
     val overallAccuracy: Int = 0,
-    val sessionsCompleted: Int = 0
+    val sessionsCompleted: Int = 0,
+    val difficulty: String = "Normal"
 )
 
 class LandingViewModel(
-    quizRepository: QuizRepository
+    quizRepository: QuizRepository,
+    settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    val uiState = quizRepository
-        .getAllAttempts()
-        .map { attempts ->
+    val uiState = combine(
+        quizRepository.getAllAttempts(),
+        settingsRepository.difficulty
+        ) { attempts, difficulty ->
 
             val sessions = attempts.size
 
@@ -39,7 +44,8 @@ class LandingViewModel(
 
             LandingUiState(
                 overallAccuracy = accuracy,
-                sessionsCompleted = sessions
+                sessionsCompleted = sessions,
+                difficulty = difficulty
             )
         }
         .stateIn(
