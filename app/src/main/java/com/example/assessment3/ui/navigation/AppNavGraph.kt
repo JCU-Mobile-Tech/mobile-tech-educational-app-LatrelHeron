@@ -10,13 +10,15 @@ import com.example.assessment3.ui.activity.ActivityScreen
 import com.example.assessment3.ui.landing.LandingScreen
 import com.example.assessment3.ui.statistics.StatisticsScreen
 import com.example.assessment3.Assessment3Application
+import com.example.assessment3.data.repository.MathFactRepository
 import com.example.assessment3.ui.settings.SettingsScreen
 
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
     quizRepository: QuizRepository,
-    settingsRepository: settingsRepository
+    settingsRepository: SettingsRepository,
+    mathFactRepository: MathFactRepository
 ) {
     NavHost(
         navController = navController,
@@ -30,7 +32,9 @@ fun AppNavGraph(
                 onOpenSettings = { navController.navigate(Routes.SETTINGS)}
             )
         }
-        composable(Routes.ACTIVITY) { ActivityScreen(quizRepository = quizRepository) }
+        composable(Routes.ACTIVITY) { ActivityScreen(quizRepository = quizRepository,
+            settingsRepository = settingsRepository,
+            mathFactRepository = mathFactRepository) }
         composable(Routes.STATISTICS) { StatisticsScreen(quizRepository = quizRepository) }
         composable(Routes.SETTINGS) { SettingsScreen(settingsRepository = settingsRepository) }
     }
