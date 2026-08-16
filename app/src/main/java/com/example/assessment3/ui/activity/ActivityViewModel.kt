@@ -45,6 +45,31 @@ class ActivityViewModel(
     init {
         loadQuestions()
     }
+    private fun loadMathFact(number: Int) {
+
+        uiState.value = uiState.value.copy(
+            isFactLoading = true,
+            factError = false
+        )
+
+        viewModelScope.launch {
+            try {
+                val fact = mathFactRepository.getMathFact(number)
+
+                uiState.value = uiState.value.copy(
+                    mathFact = fact,
+                    isFactLoading = false
+                )
+
+            } catch (e: Exception) {
+
+                uiState.value = uiState.value.copy(
+                    isFactLoading = false,
+                    factError = true
+                )
+            }
+        }
+    }
 
     private fun loadQuestions() {
         viewModelScope.launch {
