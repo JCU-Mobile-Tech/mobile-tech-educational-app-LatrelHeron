@@ -26,6 +26,8 @@ import com.example.assessment3.data.preferences.SettingsRepository
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 private val ProgressGreen = Color(0xFFE3F4E8)
 private val SessionsBlue = Color(0xFFE3EEFA)
@@ -52,7 +54,7 @@ fun LandingScreen(
     )
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
 
-        Column(modifier = Modifier.fillMaxWidth().padding(24.dp))
+        Column(modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp))
         {
             Text( text = "Maths Practice", fontSize = 34.sp, fontWeight = FontWeight.Bold)
             Text( text = "Build your number skills", fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -124,6 +126,7 @@ fun LandingScreen(
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+                Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = onOpenPractice,
                     modifier = Modifier.fillMaxWidth().height(56.dp), colors = ButtonDefaults.buttonColors(containerColor = PracticeGreen)
