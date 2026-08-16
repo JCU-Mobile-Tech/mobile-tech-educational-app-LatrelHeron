@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.assessment3.data.local.AppDatabase
 import com.example.assessment3.data.repository.QuizRepository
+import com.example.assessment3.data.preferences.SettingsRepository
 
 class AppContainer(
     context: Context
@@ -18,4 +19,6 @@ class AppContainer(
     val quizRepository = QuizRepository(
         database.quizAttemptDao()
     )
+
+    val settingsRepository = SettingsRepository(context)
 }
