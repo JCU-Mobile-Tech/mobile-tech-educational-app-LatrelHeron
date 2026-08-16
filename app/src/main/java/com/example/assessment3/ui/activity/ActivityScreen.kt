@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
@@ -65,7 +66,7 @@ fun ActivityScreen(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(40.dp))
-        Text(text = question.text, fontSize = 44.sp, fontWeight = FontWeight.Bold)
+        Text(text = question.text, fontSize = 64.sp, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(40.dp))
 
         question.options.chunked(2).forEach { rowOptions ->
@@ -76,10 +77,11 @@ fun ActivityScreen(
                 rowOptions.forEach { answer ->
                     OutlinedButton(
                         onClick = { viewModel.selectAnswer(answer) },
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f).height(110.dp),
+                        shape = RoundedCornerShape(24.dp),
                         enabled = !state.answerSubmitted
                     ) {
-                        Text(text = answer.toString(), fontSize = 20.sp)
+                        Text(text = answer.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
