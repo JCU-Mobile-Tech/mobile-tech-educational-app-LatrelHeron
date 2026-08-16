@@ -196,7 +196,7 @@ private fun QuizResultScreen(
             ) {
 
                 Text(
-                    text = "Did you know?",
+                    text = "Maths Check",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -204,18 +204,19 @@ private fun QuizResultScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 when {
-                    state.isFactLoading -> {
-                        Text("Loading maths fact...")
+                    state.isMathCheckLoading -> {
+                        Text("Verifying maths expression...")
                     }
 
-                    state.factError -> {
+                    state.mathCheckError -> {
                         Text(
-                            "Maths fact unavailable. Check your internet connection."
+                            "Maths check unavailable."
                         )
                     }
 
-                    state.mathFact.isNotBlank() -> {
-                        Text(state.mathFact)
+                    state.mathCheckResult.isNotBlank() -> {
+                        Text(state.mathCheckResult)
+                        Text("Verified online ✓")
                     }
                 }
                 Spacer(modifier = Modifier.height(24.dp))

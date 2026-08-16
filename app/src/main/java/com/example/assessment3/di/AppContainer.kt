@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.example.assessment3.data.local.AppDatabase
 import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.data.preferences.SettingsRepository
-import com.example.assessment3.data.remote.MathFactApiService
+import com.example.assessment3.data.remote.MathCheckApiService
 import com.example.assessment3.data.repository.MathCheckRepository
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -17,11 +17,11 @@ class AppContainer(
         .baseUrl("https://api.mathjs.org/")
         .addConverterFactory(ScalarsConverterFactory.create())
         .build()
-    private val mathFactApiService =
-        retrofit.create(MathFactApiService::class.java)
+    private val mathCheckApiService =
+        retrofit.create(MathCheckApiService::class.java)
     val mathCheckRepository =
         MathCheckRepository(
-            mathFactApiService
+            mathCheckApiService
         )
     private val database = Room.databaseBuilder(
         context,

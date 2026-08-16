@@ -1,13 +1,13 @@
 package com.example.assessment3.data.repository
 
-import com.example.assessment3.data.remote.MathFactApiService
+import com.example.assessment3.data.remote.MathCheckApiService
 
 class MathCheckRepository(
-    private val apiService: MathFactApiService
+    private val apiService: MathCheckApiService
 ) {
 
-    suspend fun getMathFact(number: Int): String {
+    suspend fun checkMath(expression: String): String {
         return apiService
-            .getMathFact(number)
+            .checkMath(expression)
     }
 }

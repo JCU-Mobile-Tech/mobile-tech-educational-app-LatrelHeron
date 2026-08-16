@@ -24,9 +24,9 @@ data class ActivityUiState(
     val answerSubmitted: Boolean = false,
     val quizFinished: Boolean = false,
     val sessionSaved: Boolean = false,
-    val mathFact: String = "",
-    val isFactLoading: Boolean = false,
-    val factError: Boolean = false
+    val mathCheckResult: String = "",
+    val isMathCheckLoading: Boolean = false,
+    val mathCheckError: Boolean = false
 )
 {
     val currentQuestion: Question?
@@ -46,31 +46,38 @@ class ActivityViewModel(
     init {
         loadQuestions()
     }
-    private fun loadMathFact(number: Int) {
+    private fun loadMathCheck() {
 
-        uiState.value = uiState.value.copy(
-            isFactLoading = true,
-            factError = false
+        val state = uiState.value
+
+        val question = state.questions.randomOrNull() ?: return
+
+        val expression = question.text
+            .replace("×", "*")
+            .replace("÷", "/")
+
+        uiState.value = state.copy(
+            isMathCheckLoading = true,
+            mathCheckError = false
         )
-
         viewModelScope.launch {
             try {
-                val fact = mathCheckRepository.getMathFact(number)
+                val fact = mathCheckRepository.checkMath(expression)
 
                 uiState.value = uiState.value.copy(
-                    mathFact = fact,
-                    isFactLoading = false
+                    mathCheckResult = "$expression = $result",
+                    isMathCheckLoading = false
                 )
 
             } catch (e: Exception) {
                 android.util.Log.e(
-                    "MathFact",
-                    "Failed to load maths fact",
+                    "CheckMath",
+                    "Failed to load maths expressions",
                     e
                 )
                 uiState.value = uiState.value.copy(
-                    isFactLoading = false,
-                    factError = true
+                    isMathCheckLoading = false,
+                    mathCheckError = true
                 )
             }
         }
@@ -132,7 +139,7 @@ class ActivityViewModel(
                 quizFinished = true,
                 sessionSaved = true
             )
-            loadMathFact(state.totalCorrect)
+            loadMathCheck()
         } else {
             uiState.value = state.copy(
                 currentQuestionIndex = state.currentQuestionIndex + 1,

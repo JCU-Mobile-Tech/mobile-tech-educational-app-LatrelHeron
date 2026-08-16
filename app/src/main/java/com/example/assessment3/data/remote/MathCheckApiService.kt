@@ -3,7 +3,7 @@ package com.example.assessment3.data.remote
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MathFactApiService {
+interface MathCheckApiService {
 
     @GET("v4/")
     suspend fun checkMath(
