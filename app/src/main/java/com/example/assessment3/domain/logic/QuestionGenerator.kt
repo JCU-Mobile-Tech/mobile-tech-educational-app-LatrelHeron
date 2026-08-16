@@ -6,7 +6,8 @@ import com.example.assessment3.domain.model.QuestionType
 
 object QuestionGenerator
 {
-    fun generateSession(): List<Question>
+    fun generateSession(difficulty: String
+    ): List<Question>
     {
         val questions = mutableListOf<Question>()
         repeat(5)
@@ -15,14 +16,26 @@ object QuestionGenerator
         }
         repeat(5)
         {
-            questions.add(generateDivisionQuestion())
+            questions.add(generateDivisionQuestion(difficulty))
         }
         return questions.shuffled()
     }
-    private fun generateMultiplicationQuestion(): Question
+    private fun getRange(
+        difficulty: String
+    ): IntRange {
+
+        return when (difficulty) {
+            "Easy" -> 2..5
+            "Hard" -> 2..20
+            else -> 2..12
+        }
+    }
+    private fun generateMultiplicationQuestion(difficulty: String
+    ): Question
     {
-        val first = (2..12).random()
-        val second = (2..12).random()
+        val range = getRange(difficulty)
+        val first = range.random()
+        val second = range.random()
         val answer = first * second
         return Question(
             text = "$first × $second",
@@ -31,10 +44,12 @@ object QuestionGenerator
             type = QuestionType.MULTIPLICATION
         )
     }
-    private fun generateDivisionQuestion(): Question
+    private fun generateDivisionQuestion(difficulty: String
+    ): Question
     {
-        val divisor = (2..12).random()
-        val answer = (2..12).random()
+        val range = getRange(difficulty)
+        val divisor = range.random()
+        val answer = range.random()
         val dividend = divisor * answer
 
         return Question(
