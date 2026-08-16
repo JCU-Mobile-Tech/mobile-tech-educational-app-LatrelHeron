@@ -14,15 +14,11 @@ class AppContainer(
     context: Context
 ) {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.math.tools/")
-        .addConverterFactory(
-            ScalarsConverterFactory.create()
-        )
+        .baseUrl("http://numbersapi.com/")
+        .addConverterFactory(ScalarsConverterFactory.create())
         .build()
     private val mathFactApiService =
-        retrofit.create(
-            MathFactApiService::class.java
-        )
+        retrofit.create(MathFactApiService::class.java)
     val mathFactRepository =
         MathFactRepository(
             mathFactApiService
