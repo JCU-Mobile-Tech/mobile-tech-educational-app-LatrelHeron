@@ -3,6 +3,7 @@ package com.example.assessment3.ui.statistics
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.assessment3.data.repository.QuizRepository
+import com.example.assessment3.domain.logic.RankCalculator
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -59,7 +60,8 @@ class StatisticsViewModel(
                 if (divisionQuestions == 0) 0
                 else (divisionCorrect * 100) / divisionQuestions
 
-            val rankInfo = calculateRank(sessions)
+            val rankInfo = RankCalculator.calculate(sessions)
+
 
             StatisticsUiState(
                 sessionsCompleted = sessions,
