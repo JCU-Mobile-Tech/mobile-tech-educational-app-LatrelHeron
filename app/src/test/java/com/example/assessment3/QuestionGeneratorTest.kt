@@ -1,9 +1,7 @@
-package com.example.assessment3.domain.logic
+package com.example.assessment3
 
+import com.example.assessment3.domain.logic.QuestionGenerator
 import com.example.assessment3.domain.model.QuestionType
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Test
 
 class QuestionGeneratorTest {
 

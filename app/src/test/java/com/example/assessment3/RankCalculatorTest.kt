@@ -1,7 +1,6 @@
-package com.example.assessment3.domain.logic
+package com.example.assessment3
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import com.example.assessment3.domain.logic.RankCalculator
 
 class RankCalculatorTest {
 

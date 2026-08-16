@@ -12,11 +12,11 @@ object QuestionGenerator
         val questions = mutableListOf<Question>()
         repeat(5)
         {
-            questions.add(generateMultiplicationQuestion())
+            questions.add(generateMultiplicationQuestion(difficulty = difficulty))
         }
         repeat(5)
         {
-            questions.add(generateDivisionQuestion(difficulty))
+            questions.add(generateDivisionQuestion(difficulty = difficulty))
         }
         return questions.shuffled()
     }
