@@ -28,7 +28,7 @@ The user can select a difficulty level from the Settings screen:
 
 The selected difficulty is stored and used when generating future quiz questions.
 
-## Easy:
+## Easy, Quiz naming carries across screens:
 
 <p align="center">
   <img src="screenshots/easy.png" width="220">
@@ -36,7 +36,7 @@ The selected difficulty is stored and used when generating future quiz questions
   <img src="screenshots/easy_act.png" width="220">
 </p>
 
-## Normal:
+## Normal, Quiz naming carries across screens:
 
 <p align="center">
   <img src="screenshots/normal.png" width="220">
@@ -44,7 +44,7 @@ The selected difficulty is stored and used when generating future quiz questions
   <img src="screenshots/normal_act.png" width="220">
 </p>
 
-## Hard:
+## Hard, Quiz naming carries across screens:
 
 <p align="center">
   <img src="screenshots/settings.png" width="220">
