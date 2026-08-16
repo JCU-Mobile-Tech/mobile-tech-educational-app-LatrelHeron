@@ -79,9 +79,10 @@ The user's current rank and progress towards the next rank are displayed on the 
 
 ## Reset rank option but at a cost
 Also the user can reset statistics at the cost of there rank
+<p align="center">
 <img src="screenshots/rank_progressrestbutton.png" width="220">
 <img src="screenshots/rank_resetc.png" width="220">
-
+</p>
 
 ## Application Screens
 
@@ -142,8 +143,9 @@ The application uses **Retrofit** to communicate with an external maths service.
 After a quiz is completed, a mathematical expression is sent to the service and the returned result is displayed as an online verification.
 
 Network errors are handled so that failure of the online service does not prevent the user from completing the main quiz.
-
+<p align="center">
 <img src="screenshots/activity_completedquiz.png" width="220">
+</p>
 
 ## Architecture
 
