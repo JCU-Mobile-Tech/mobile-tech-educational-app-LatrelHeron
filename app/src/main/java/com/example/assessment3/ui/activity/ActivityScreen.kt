@@ -25,6 +25,9 @@ import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.domain.model.QuizResult
 import com.example.assessment3.data.repository.MathCheckRepository
 import com.example.assessment3.data.preferences.SettingsRepository
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.graphics.Color
 @Composable
 fun ActivityScreen(
     quizRepository: QuizRepository,
@@ -75,11 +78,41 @@ fun ActivityScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 rowOptions.forEach { answer ->
+                    val isSelected = state.selectedAnswer == answer
+                    val isCorrectAnswer = answer == question.correctAnswer
+
+                    val containerColor = when {
+                        state.answerSubmitted && isCorrectAnswer ->
+                            Color(0xFF4CAF50)
+
+                        state.answerSubmitted && isSelected && !isCorrectAnswer ->
+                            Color(0xFFE53935)
+
+                        isSelected ->
+                            MaterialTheme.colorScheme.secondaryContainer
+
+                        else ->
+                            Color.Transparent
+                    }
+
+                    val contentColor = when {
+                        state.answerSubmitted && (isCorrectAnswer || isSelected) ->
+                            Color.White
+
+                        else ->
+                            MaterialTheme.colorScheme.onSurface
+                    }
+
                     OutlinedButton(
                         onClick = { viewModel.selectAnswer(answer) },
                         modifier = Modifier.weight(1f).height(110.dp),
                         shape = RoundedCornerShape(24.dp),
-                        enabled = !state.answerSubmitted
+                        enabled = !state.answerSubmitted,
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            containerColor = containerColor,
+                            contentColor = contentColor,
+                            disabledContainerColor = containerColor,
+                            disabledContentColor = contentColor)
                     ) {
                         Text(text = answer.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold)
                     }
