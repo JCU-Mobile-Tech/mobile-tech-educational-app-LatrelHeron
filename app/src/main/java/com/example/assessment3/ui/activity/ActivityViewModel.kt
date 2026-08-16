@@ -12,6 +12,7 @@ import com.example.assessment3.domain.model.QuestionType
 import com.example.assessment3.domain.model.QuizResult
 import com.example.assessment3.data.repository.MathFactRepository
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.first
 
 data class ActivityUiState(
     val questions: List<Question> = emptyList(),
@@ -118,7 +119,7 @@ class ActivityViewModel(
                 viewModelScope.launch {
                     quizRepository.saveAttempt(
                         totalCorrect = state.totalCorrect,
-                        multiplicationCorrect = state.multiplcationCorrect,
+                        multiplicationCorrect = state.multiplicationCorrect,
                         divisionCorrect = state.divisionCorrect
                     )
                 }
