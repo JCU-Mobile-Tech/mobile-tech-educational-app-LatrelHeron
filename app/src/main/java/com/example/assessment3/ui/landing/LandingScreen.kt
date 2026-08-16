@@ -99,12 +99,6 @@ fun LandingScreen(
                     Text("Quick Practice")
                 }
         }
-        Spacer(modifier = Modifier.height(32.dp))
-        Row( modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly )
-        {
-            Button(onClick = onOpenStatistics) { Text("Statistics") }
-            Button(onClick = onOpenSettings) { Text("Settings") }
-        }
     }
 }
 
