@@ -33,7 +33,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.Icon
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+
+private val ProgressGreen = Color(0xFFE3F4E8)
+private val SessionsBlue = Color(0xFFE3EEFA)
+private val RankPurple = Color(0xFFEDE7F6)
+private val StatYellow = Color(0xFFFFF4D8)
+
+private val BronzeColor = Color(0xFFD57F28)
+private val HeadingBlue = Color(0xFF3949AB)
 
 @Composable
 fun StatisticsScreen(    quizRepository: QuizRepository
@@ -62,7 +72,7 @@ fun StatisticsScreen(    quizRepository: QuizRepository
     }
 
     Column(
-        modifier = Modifier.padding(24.dp)
+        modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp)
     ) {
 
         Text(
@@ -75,7 +85,8 @@ fun StatisticsScreen(    quizRepository: QuizRepository
 
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp)
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = RankPurple)
         ) {
 
             Column(
@@ -96,7 +107,8 @@ fun StatisticsScreen(    quizRepository: QuizRepository
                 Text(
                     text = state.currentRank,
                     fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.ExtraBold,
+                    color = rankColor
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -132,8 +144,8 @@ fun StatisticsScreen(    quizRepository: QuizRepository
 
         Text(
             text = "Your Statistics",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -146,12 +158,14 @@ fun StatisticsScreen(    quizRepository: QuizRepository
             StatCard(
                 title = "Overall",
                 value = "${state.overallAccuracy}%",
+                containerColor = ProgressGreen,
                 modifier = Modifier.weight(1f)
             )
 
             StatCard(
                 title = "Sessions",
                 value = state.sessionsCompleted.toString(),
+                containerColor = SessionsBlue,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -166,12 +180,14 @@ fun StatisticsScreen(    quizRepository: QuizRepository
             StatCard(
                 title = "Multiplication",
                 value = "${state.multiplicationAccuracy}%",
+                containerColor = RankPurple,
                 modifier = Modifier.weight(1f)
             )
 
             StatCard(
                 title = "Division",
                 value = "${state.divisionAccuracy}%",
+                containerColor = StatYellow,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -180,8 +196,8 @@ fun StatisticsScreen(    quizRepository: QuizRepository
 
         Text(
             text = "Rank Milestones",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -247,30 +263,33 @@ fun StatisticsScreen(    quizRepository: QuizRepository
 private fun StatCard(
     title: String,
     value: String,
+    containerColor: Color,
     modifier: Modifier = Modifier
 ) {
 
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = containerColor)
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(18.dp),
+                .padding(22.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             Text(
                 text = value,
-                fontSize = 26.sp,
-                fontWeight = FontWeight.Bold
+                fontSize = 32.sp,
+                fontWeight = FontWeight.ExtraBold
             )
 
             Text(
                 text = title,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium
             )
         }
     }
