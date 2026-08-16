@@ -63,7 +63,11 @@ class ActivityViewModel(
                 )
 
             } catch (e: Exception) {
-
+                android.util.Log.e(
+                    "MathFact",
+                    "Failed to load maths fact",
+                    e
+                )
                 uiState.value = uiState.value.copy(
                     isFactLoading = false,
                     factError = true
