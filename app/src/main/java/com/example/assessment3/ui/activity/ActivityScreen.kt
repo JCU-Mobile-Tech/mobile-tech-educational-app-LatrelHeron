@@ -23,6 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.domain.model.QuizResult
 import com.example.assessment3.data.repository.MathFactRepository
+import com.example.assessment3.data.preferences.SettingsRepository
 @Composable
 fun ActivityScreen(
     quizRepository: QuizRepository,
@@ -30,7 +31,7 @@ fun ActivityScreen(
     mathFactRepository: MathFactRepository
 ) {
     val viewModel: ActivityViewModel = viewModel(
-        factory = ActivityViewModel = viewModel(
+        factory = ActivityViewModelFactory(
             quizRepository = quizRepository,
             settingsRepository = settingsRepository,
             mathFactRepository = mathFactRepository

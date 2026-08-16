@@ -2,8 +2,10 @@ package com.example.assessment3.ui.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.assessment3.data.preferences.SettingsRepository
 import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.data.repository.MathFactRepository
+
 
 class ActivityViewModelFactory(
     private val quizRepository: QuizRepository,
