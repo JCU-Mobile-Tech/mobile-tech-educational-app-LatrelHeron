@@ -78,7 +78,9 @@ The user's current rank and progress towards the next rank are displayed on the 
 </p>
 
 ## Reset rank option but at a cost
+
 Also the user can reset statistics at the cost of there rank
+
 <p align="center">
 <img src="screenshots/rank_progressrestbutton.png" width="220">
 <img src="screenshots/rank_resetc.png" width="220">
@@ -97,6 +99,7 @@ Displays the user's current accuracy and completed sessions. The user can start 
 ## Activity Emulation (practice quiz)
 
 Is a emmulation of what the user can expect before taking a real quiz in the activity screen, in which it generates a single question based on diffucity selected for both multiplcation and division.
+
 <p align="center">
   <img src="screenshots/prac_1.png" width="220">
   <img src="screenshots/prac_2.png" width="220">
@@ -123,6 +126,7 @@ Displays overall statistics, completed sessions, multiplication and division acc
 ### Settings
 
 Allows the user to change the quiz difficulty and answer feedback sound preference.
+
 <p align="center">
 <img src="screenshots/settings.png" width="220">
 <img src="screenshots/sound_enabled.png" width="220">
