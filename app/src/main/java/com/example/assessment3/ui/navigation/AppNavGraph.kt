@@ -97,23 +97,10 @@ fun AppNavGraph(
                         )
                     },
                     label = {
-                        Text(rankState.currentRank)
+                        Text("Rank")
                     }
                 )
                 
-                NavigationBarItem(
-                    selected = currentRoute == Routes.STATISTICS,
-                    onClick = {
-                        navController.navigate(Routes.STATISTICS)
-                    },
-                    icon = {
-                        Text("📊")
-                    },
-                    label = {
-                        Text("Progress")
-                    }
-                )
-
                 NavigationBarItem(
                     selected = currentRoute == Routes.SETTINGS,
                     onClick = {
