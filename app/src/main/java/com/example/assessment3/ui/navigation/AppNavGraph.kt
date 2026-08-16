@@ -95,7 +95,8 @@ fun AppNavGraph(
                     quizRepository = quizRepository,
                     onStartActivity = { navController.navigate(Routes.ACTIVITY) },
                     onOpenStatistics = { navController.navigate(Routes.STATISTICS) },
-                    onOpenSettings = { navController.navigate(Routes.SETTINGS)}
+                    onOpenSettings = { navController.navigate(Routes.SETTINGS)},
+                    onOpenPractice = { navController.navigate(Routes.PRACTICE)}
                 )
             }
             composable(Routes.ACTIVITY) { ActivityScreen(quizRepository = quizRepository,

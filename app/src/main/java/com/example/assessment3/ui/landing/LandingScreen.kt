@@ -28,7 +28,8 @@ fun LandingScreen(
     quizRepository: QuizRepository,
     onStartActivity: () -> Unit,
     onOpenStatistics: () -> Unit,
-    onOpenSettings: () -> Unit
+    onOpenSettings: () -> Unit,
+    onOpenPractice: () -> Unit
 ) {
     val viewModel: LandingViewModel = viewModel(
         factory = LandingViewModelFactory(
@@ -89,6 +90,14 @@ fun LandingScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) { Text("Start Practice") }
             }
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = onOpenPractice,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Quick Practice")
+                }
         }
         Spacer(modifier = Modifier.height(32.dp))
         Row( modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly )
