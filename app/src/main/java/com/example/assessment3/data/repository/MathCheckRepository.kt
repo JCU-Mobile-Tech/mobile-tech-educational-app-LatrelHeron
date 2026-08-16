@@ -2,7 +2,7 @@ package com.example.assessment3.data.repository
 
 import com.example.assessment3.data.remote.MathFactApiService
 
-class MathFactRepository(
+class MathCheckRepository(
     private val apiService: MathFactApiService
 ) {
 

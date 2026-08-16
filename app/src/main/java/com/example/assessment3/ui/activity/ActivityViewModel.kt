@@ -10,7 +10,7 @@ import com.example.assessment3.domain.logic.ScoreCalculator
 import com.example.assessment3.domain.model.Question
 import com.example.assessment3.domain.model.QuestionType
 import com.example.assessment3.domain.model.QuizResult
-import com.example.assessment3.data.repository.MathFactRepository
+import com.example.assessment3.data.repository.MathCheckRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.first
 
@@ -36,7 +36,7 @@ data class ActivityUiState(
 class ActivityViewModel(
     private val quizRepository: QuizRepository,
     private val settingsRepository: SettingsRepository,
-    private val mathFactRepository: MathFactRepository
+    private val mathCheckRepository: MathCheckRepository
 ) : ViewModel()
 {
     var uiState = mutableStateOf(
@@ -55,7 +55,7 @@ class ActivityViewModel(
 
         viewModelScope.launch {
             try {
-                val fact = mathFactRepository.getMathFact(number)
+                val fact = mathCheckRepository.getMathFact(number)
 
                 uiState.value = uiState.value.copy(
                     mathFact = fact,

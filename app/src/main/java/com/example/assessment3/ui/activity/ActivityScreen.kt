@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.domain.model.QuizResult
-import com.example.assessment3.data.repository.MathFactRepository
+import com.example.assessment3.data.repository.MathCheckRepository
 import com.example.assessment3.data.preferences.SettingsRepository
 @Composable
 fun ActivityScreen(
     quizRepository: QuizRepository,
     settingsRepository: SettingsRepository,
-    mathFactRepository: MathFactRepository,
+    mathCheckRepository: MathCheckRepository,
     onBackHome: () -> Unit,
     onOpenStatistics: () -> Unit
 ) {
@@ -36,7 +36,7 @@ fun ActivityScreen(
         factory = ActivityViewModelFactory(
             quizRepository = quizRepository,
             settingsRepository = settingsRepository,
-            mathFactRepository = mathFactRepository
+            mathCheckRepository = mathCheckRepository
         )
     )
     val state = viewModel.uiState.value

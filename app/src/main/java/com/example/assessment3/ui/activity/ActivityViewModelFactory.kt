@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.assessment3.data.preferences.SettingsRepository
 import com.example.assessment3.data.repository.QuizRepository
-import com.example.assessment3.data.repository.MathFactRepository
+import com.example.assessment3.data.repository.MathCheckRepository
 
 
 class ActivityViewModelFactory(
     private val quizRepository: QuizRepository,
     private val settingsRepository: SettingsRepository,
-    private val mathFactRepository: MathFactRepository
+    private val mathCheckRepository: MathCheckRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(
@@ -22,7 +22,7 @@ class ActivityViewModelFactory(
             return ActivityViewModel(
                 quizRepository = quizRepository,
                 settingsRepository = settingsRepository,
-                mathFactRepository = mathFactRepository
+                mathCheckRepository = mathCheckRepository
             ) as T
         }
 

@@ -13,8 +13,7 @@ import com.example.assessment3.data.preferences.SettingsRepository
 import com.example.assessment3.ui.activity.ActivityScreen
 import com.example.assessment3.ui.landing.LandingScreen
 import com.example.assessment3.ui.statistics.StatisticsScreen
-import com.example.assessment3.Assessment3Application
-import com.example.assessment3.data.repository.MathFactRepository
+import com.example.assessment3.data.repository.MathCheckRepository
 import com.example.assessment3.ui.settings.SettingsScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.assessment3.ui.practice.PracticeScreen
@@ -24,7 +23,7 @@ fun AppNavGraph(
     navController: NavHostController,
     quizRepository: QuizRepository,
     settingsRepository: SettingsRepository,
-    mathFactRepository: MathFactRepository
+    mathCheckRepository: MathCheckRepository
 ) {
     val navBackStackEntry = navController.currentBackStackEntryAsState().value
     val currentRoute = navBackStackEntry?.destination?.route
@@ -101,7 +100,7 @@ fun AppNavGraph(
             }
             composable(Routes.ACTIVITY) { ActivityScreen(quizRepository = quizRepository,
                 settingsRepository = settingsRepository,
-                mathFactRepository = mathFactRepository,
+                mathCheckRepository = mathCheckRepository,
                 onBackHome = {
                     navController.navigate(Routes.LANDING) {
                         popUpTo(Routes.LANDING) {
