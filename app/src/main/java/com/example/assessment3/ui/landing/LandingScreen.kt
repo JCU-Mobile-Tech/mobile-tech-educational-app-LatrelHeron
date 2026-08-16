@@ -135,7 +135,7 @@ fun LandingScreen(
 }
 
 @Composable
-private fun StatisticCard( value: String, label: String, modifier: Modifier = Modifier)
+private fun StatisticCard( value: String, label: String, containerColor: Color, modifier: Modifier = Modifier)
 {
     Card( modifier = modifier, shape = RoundedCornerShape(22.dp), colors = CardDefaults.cardColors(containerColor = containerColor))
     {
