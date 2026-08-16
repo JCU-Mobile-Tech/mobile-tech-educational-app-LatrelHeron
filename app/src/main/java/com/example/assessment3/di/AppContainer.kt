@@ -14,7 +14,7 @@ class AppContainer(
     context: Context
 ) {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://numbersapi.com/")
+        .baseUrl("https://api.math.tools/")
         .addConverterFactory(
             ScalarsConverterFactory.create()
         )

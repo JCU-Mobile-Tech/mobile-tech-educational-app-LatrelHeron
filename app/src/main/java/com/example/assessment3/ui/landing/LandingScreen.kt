@@ -72,7 +72,7 @@ fun LandingScreen(
             {
                 Text(text = "×  ÷", fontSize = 38.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Practice", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text(text = "Mixed Quiz", fontSize = 22.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "5 Multiplication - 5 Division",
@@ -88,7 +88,7 @@ fun LandingScreen(
                 Button(
                     onClick = onStartActivity,
                     modifier = Modifier.fillMaxWidth()
-                ) { Text("Start Practice") }
+                ) { Text("Start Quiz") }
             }
                 Spacer(modifier = Modifier.height(16.dp))
 

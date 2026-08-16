@@ -1,12 +1,12 @@
 package com.example.assessment3.data.remote
 
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MathFactApiService {
 
-    @GET("{number}/math")
+    @GET("numbers/fact")
     suspend fun getMathFact(
-        @Path("number") number: Int
-    ): String
+        @Query("number") number: Int
+    ): MathFactResponse
 }
