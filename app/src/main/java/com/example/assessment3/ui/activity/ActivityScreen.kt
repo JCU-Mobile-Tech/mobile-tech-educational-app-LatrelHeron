@@ -22,19 +22,23 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.domain.model.QuizResult
-
+import com.example.assessment3.data.repository.MathFactRepository
 @Composable
 fun ActivityScreen(
-    quizRepository: QuizRepository
+    quizRepository: QuizRepository,
+    settingsRepository: SettingsRepository,
+    mathFactRepository: MathFactRepository
 ) {
     val viewModel: ActivityViewModel = viewModel(
         factory = ActivityViewModel = viewModel(
-            quizRepository = quizRepository
+            quizRepository = quizRepository,
+            settingsRepository = settingsRepository,
+            mathFactRepository = mathFactRepository
         )
     )
     val state = viewModel.uiState.value
     if (state.quizFinished) {
-        QuizResultScreen(result = viewModel.getQuizResult())
+        QuizResultScreen(result = viewModel.getQuizResult(), state = state)
         return
     }
     val question = state.currentQuestion ?: return
@@ -113,7 +117,8 @@ fun ActivityScreen(
 
 @Composable
 private fun QuizResultScreen(
-    result: QuizResult
+    result: QuizResult,
+    state: ActivityUiState
 ) {
     Column(
         modifier = Modifier
@@ -169,6 +174,40 @@ private fun QuizResultScreen(
                     text = "Division: ${result.divisionCorrect}/5 " +
                             "(${result.divisionAccuracy}%)"
                 )
+            }
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.padding(20.dp)
+            ) {
+
+                Text(
+                    text = "Did you know?",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                when {
+                    state.isFactLoading -> {
+                        Text("Loading maths fact...")
+                    }
+
+                    state.factError -> {
+                        Text(
+                            "Maths fact unavailable. Check your internet connection."
+                        )
+                    }
+
+                    state.mathFact.isNotBlank() -> {
+                        Text(state.mathFact)
+                    }
+                }
             }
         }
     }
