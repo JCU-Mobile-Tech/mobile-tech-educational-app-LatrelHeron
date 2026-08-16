@@ -84,12 +84,21 @@ Also the user can reset statistics at the cost of there rank
 
 ## Application Screens
 
-### Home
+### Home/Landing
 
 Displays the user's current accuracy and completed sessions. The user can start a quiz or enter Quick Practice.
 <p align="center">
 <img src="screenshots/home_1.png" width="220">
 <img src="screenshots/home_2.png" width="220">
+</p>
+
+## Activity Emulation (practice quiz)
+
+Is a emmulation of what the user can expect before taking a real quiz in the activity screen, in which it generates a single question based on diffucity selected for both multiplcation and division.
+<p align="center">
+  <img src="screenshots/prac_1.png" width="220">
+  <img src="screenshots/prac_2.png" width="220">
+  <img src="screenshots/prac_complete.png" width="220">
 </p>
 
 ### Activity
@@ -116,8 +125,6 @@ Allows the user to change the quiz difficulty and answer feedback sound preferen
 <img src="screenshots/settings.png" width="220">
 <img src="screenshots/sound_enabled.png" width="220">
 </p>
-
-
 
 ## Data Storage
 
