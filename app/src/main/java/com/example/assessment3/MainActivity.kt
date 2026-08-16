@@ -28,7 +28,9 @@ class MainActivity : ComponentActivity() {
 
                 AppNavGraph(
                     navController = navController,
-                    quizRepository = app.controller.quizRepository
+                    quizRepository = app.controller.quizRepository,
+                    settingsRepository = app.container.settingsRepository
+
                 )
 
             }
