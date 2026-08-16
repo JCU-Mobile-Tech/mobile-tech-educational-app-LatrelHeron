@@ -1,4 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/fj45pCZN)
+
 # Maths Practice
 
 Maths Practice is an Android educational application designed to help younger students practise multiplication and division skills through short interactive quizzes.
@@ -27,10 +28,35 @@ The user can select a difficulty level from the Settings screen:
 
 The selected difficulty is stored and used when generating future quiz questions.
 
+## Easy:
+
+<p align="center">
+  <img src="screenshots/easy.png" width="220">
+  <img src="screenshots/easy_landing.png" width="220">
+  <img src="screenshots/easy_act.png" width="220">
+</p>
+
+## Normal:
+
+<p align="center">
+  <img src="screenshots/normal.png" width="220">
+  <img src="screenshots/normal_landing.png" width="220">
+  <img src="screenshots/normal_act.png" width="220">
+</p>
+
+## Hard:
+
+<p align="center">
+  <img src="screenshots/settings.png" width="220">
+  <img src="screenshots/Hard_landing.png" width="220">
+  <img src="screenshots/Hard_act.png" width="220">
+</p>
+
 ## Rank System
 
 The application includes a simple gamified rank system based on the number of completed quiz sessions.
 
+- Unranked - less than 10 sessions
 - Bronze – 10 sessions
 - Silver – 25 sessions
 - Gold – 50 sessions
@@ -39,18 +65,39 @@ The application includes a simple gamified rank system based on the number of co
 
 The user's current rank and progress towards the next rank are displayed on the Rank screen.
 
+## All the Ranks that can be achieved:
+
+<p align="center">
+  <img src="screenshots/rank_unranked.png" width="220">
+  <img src="screenshots/rank_bronze.png" width="220">
+  <img src="screenshots/rank_sliver.png" width="220">
+  <img src="screenshots/rank_gold.png" width="220">
+  <img src="screenshots/rank_gold.png" width="220">
+  <img src="screenshots/rank_gold.png" width="220">
+  <img src="screenshots/rank_netherite.png" width="220">
+</p>
+
+Also the user can reset statistics at the cost of there rank
+<img src="screenshots/rank_progressrestbutton.png" width="220">
+<img src="screenshots/rank_resetc.png" width="220">
+
+
 ## Application Screens
 
 ### Home
+
 Displays the user's current accuracy and completed sessions. The user can start a quiz or enter Quick Practice.
 
 ### Activity
+
 Runs the main 10-question quiz. Questions consist of multiplication and division problems with four possible answers. The application provides immediate visual feedback after an answer is submitted.
 
 ### Rank
+
 Displays overall statistics, completed sessions, multiplication and division accuracy, current rank, and rank milestones.
 
 ### Settings
+
 Allows the user to change the quiz difficulty and answer feedback sound preference.
 
 ## Data Storage
