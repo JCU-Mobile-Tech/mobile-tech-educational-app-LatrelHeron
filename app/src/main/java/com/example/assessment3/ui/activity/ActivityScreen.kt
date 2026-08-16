@@ -28,7 +28,9 @@ import com.example.assessment3.data.preferences.SettingsRepository
 fun ActivityScreen(
     quizRepository: QuizRepository,
     settingsRepository: SettingsRepository,
-    mathFactRepository: MathFactRepository
+    mathFactRepository: MathFactRepository,
+    onBackHome: () -> Unit,
+    onOpenStatistics: () -> Unit
 ) {
     val viewModel: ActivityViewModel = viewModel(
         factory = ActivityViewModelFactory(
@@ -39,7 +41,12 @@ fun ActivityScreen(
     )
     val state = viewModel.uiState.value
     if (state.quizFinished) {
-        QuizResultScreen(result = viewModel.getQuizResult(), state = state)
+        QuizResultScreen(
+            result = viewModel.getQuizResult(),
+            state = state,
+            onBackHome = onBackHome,
+            onOpenStatistics = onOpenStatistics
+            )
         return
     }
     val question = state.currentQuestion ?: return
@@ -119,7 +126,9 @@ fun ActivityScreen(
 @Composable
 private fun QuizResultScreen(
     result: QuizResult,
-    state: ActivityUiState
+    state: ActivityUiState,
+    onBackHome: () -> Unit,
+    onOpenStatistics: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -165,14 +174,14 @@ private fun QuizResultScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Multiplication: ${result.multiplicationCorrect}/5 " +
+                    text = "Multiplication: ${result.multiplicationCorrect}/5" +
                             "(${result.multiplicationAccuracy}%)"
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Division: ${result.divisionCorrect}/5 " +
+                    text = "Division: ${result.divisionCorrect}/5" +
                             "(${result.divisionAccuracy}%)"
                 )
             }
@@ -208,6 +217,23 @@ private fun QuizResultScreen(
                     state.mathFact.isNotBlank() -> {
                         Text(state.mathFact)
                     }
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Button(
+                    onClick = onOpenStatistics,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("View Statistics")
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Button(
+                    onClick = onBackHome,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Back Home")
                 }
             }
         }
