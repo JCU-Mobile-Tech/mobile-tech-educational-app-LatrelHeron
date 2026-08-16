@@ -1,5 +1,9 @@
 package com.example.assessment3.ui.navigation
 
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,6 +16,7 @@ import com.example.assessment3.ui.statistics.StatisticsScreen
 import com.example.assessment3.Assessment3Application
 import com.example.assessment3.data.repository.MathFactRepository
 import com.example.assessment3.ui.settings.SettingsScreen
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun AppNavGraph(
@@ -20,12 +25,14 @@ fun AppNavGraph(
     settingsRepository: SettingsRepository,
     mathFactRepository: MathFactRepository
 ) {
+    val navBackStackEntry = navController.currentBackStackEntryAsState().value
+    val currentRoute = navBackStackEntry?.destination?.route
     Scaffold(
         bottomBar = {
             NavigationBar {
 
                 NavigationBarItem(
-                    selected = false,
+                    selected = currentRoute == Routes.LANDING,
                     onClick = {
                         navController.navigate(Routes.LANDING)
                     },
@@ -38,7 +45,7 @@ fun AppNavGraph(
                 )
 
                 NavigationBarItem(
-                    selected = false,
+                    selected = currentRoute == Routes.ACTIVITY,
                     onClick = {
                         navController.navigate(Routes.ACTIVITY)
                     },
@@ -51,7 +58,7 @@ fun AppNavGraph(
                 )
 
                 NavigationBarItem(
-                    selected = false,
+                    selected = currentRoute == Routes.STATISTICS,
                     onClick = {
                         navController.navigate(Routes.STATISTICS)
                     },
@@ -64,7 +71,7 @@ fun AppNavGraph(
                 )
 
                 NavigationBarItem(
-                    selected = false,
+                    selected = currentRoute == Routes.SETTINGS,
                     onClick = {
                         navController.navigate(Routes.SETTINGS)
                     },
