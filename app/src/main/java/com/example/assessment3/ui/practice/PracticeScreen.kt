@@ -2,104 +2,184 @@ package com.example.assessment3.ui.practice
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun PracticeScreen(
-    onBackHome: () -> Unit
+    onBackHome: () -> Unit,
+    viewModel: PracticeViewModel = viewModel()
 ) {
-    val multiplicationA = remember { (2..12).random() }
-    val multiplicationB = remember { (2..12).random() }
 
-    val divisionAnswer = remember { (2..12).random() }
-    val divisor = remember { (2..12).random() }
-    val dividend = divisionAnswer * divisor
+    val state = viewModel.uiState.value
+
+    if (state.practiceFinished) {
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+
+            Text(
+                text = "Practice Complete!",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "This practice does not affect your score, sessions, or rank."
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = onBackHome,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Back Home")
+            }
+        }
+
+        return
+    }
+
+    val question = state.currentQuestion ?: return
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Text(
             text = "Quick Practice",
-            fontSize = 30.sp,
+            fontSize = 28.sp,
             fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp)
-            ) {
-                Text(
-                    text = "Multiplication Example",
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "$multiplicationA × $multiplicationB = ${multiplicationA * multiplicationB}",
-                    fontSize = 24.sp
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp)
-            ) {
-                Text(
-                    text = "Division Example",
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "$dividend ÷ $divisor = $divisionAnswer",
-                    fontSize = 24.sp
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
         Text(
-            text = "Quick Practice does not affect your score, sessions, or rank."
+            text = "Question ${state.currentQuestionIndex + 1} of ${state.questions.size}"
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
-            onClick = onBackHome,
+        LinearProgressIndicator(
+            progress = {
+                (state.currentQuestionIndex + 1).toFloat() /
+                        state.questions.size
+            },
             modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Back Home")
+        )
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        Text(
+            text = question.text,
+            fontSize = 44.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        question.options.chunked(2).forEach { rowOptions ->
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+
+                rowOptions.forEach { answer ->
+
+                    OutlinedButton(
+                        onClick = {
+                            viewModel.selectAnswer(answer)
+                        },
+                        modifier = Modifier.weight(1f),
+                        enabled = !state.answerSubmitted
+                    ) {
+                        Text(
+                            text = answer.toString(),
+                            fontSize = 20.sp
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        if (state.answerSubmitted) {
+
+            Text(
+                text =
+                    if (
+                        state.selectedAnswer ==
+                        question.correctAnswer
+                    ) {
+                        "Correct!"
+                    } else {
+                        "Correct answer: ${question.correctAnswer}"
+                    },
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = {
+                    viewModel.nextQuestion()
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    if (
+                        state.currentQuestionIndex ==
+                        state.questions.lastIndex
+                    ) {
+                        "Finish Practice"
+                    } else {
+                        "Next Question"
+                    }
+                )
+            }
+
+        } else {
+
+            Button(
+                onClick = {
+                    viewModel.submitAnswer()
+                },
+                enabled = state.selectedAnswer != null,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Submit Answer")
+            }
         }
     }
 }
