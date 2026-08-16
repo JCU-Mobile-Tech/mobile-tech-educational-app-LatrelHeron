@@ -68,13 +68,13 @@ The user's current rank and progress towards the next rank are displayed on the 
 ## All the Ranks that can be achieved:
 
 <p align="center">
-  <img src="screenshots/rank_unranked.png" width="220">
-  <img src="screenshots/rank_bronze.png" width="220">
-  <img src="screenshots/rank_sliver.png" width="220">
-  <img src="screenshots/rank_gold.png" width="220">
-  <img src="screenshots/rank_gold.png" width="220">
-  <img src="screenshots/rank_gold.png" width="220">
-  <img src="screenshots/rank_netherite.png" width="220">
+<img src="screenshots/rank_unranked.png" width="220">
+<img src="screenshots/rank_bronze.png" width="220">
+<img src="screenshots/rank_sliver.png" width="220">
+<img src="screenshots/rank_gold.png" width="220">
+<img src="screenshots/rank_gold.png" width="220">
+<img src="screenshots/rank_gold.png" width="220">
+<img src="screenshots/rank_netherite.png" width="220">
 </p>
 
 Also the user can reset statistics at the cost of there rank
@@ -87,10 +87,23 @@ Also the user can reset statistics at the cost of there rank
 ### Home
 
 Displays the user's current accuracy and completed sessions. The user can start a quiz or enter Quick Practice.
+<p align="center">
+<img src="screenshots/home_1.png" width="220">
+<img src="screenshots/home_2.png" width="220">
+</p>
 
 ### Activity
 
-Runs the main 10-question quiz. Questions consist of multiplication and division problems with four possible answers. The application provides immediate visual feedback after an answer is submitted.
+Runs the main 10-question quiz. Questions consist of multiplication and division problems with four possible answers. The application provides immediate visual feedback after an answer is submitted. Once the quiz is complete API is used to check answers and verify correct.
+
+## the quiz flow
+<p align="center">
+<img src="screenshots/activity_unanswered.png" width="220">
+<img src="screenshots/activity_answerbeforesubmission.png" width="220">
+<img src="screenshots/activity_answersubmissioncorrect.png" width="220">
+<img src="screenshots/activity_answersubmissionwrong.png" width="220">
+<img src="screenshots/activity_completedquiz.png" width="220">
+</p>
 
 ### Rank
 
@@ -99,6 +112,12 @@ Displays overall statistics, completed sessions, multiplication and division acc
 ### Settings
 
 Allows the user to change the quiz difficulty and answer feedback sound preference.
+<p align="center">
+<img src="screenshots/settings.png" width="220">
+<img src="screenshots/sound_enabled.png" width="220">
+</p>
+
+
 
 ## Data Storage
 
@@ -115,6 +134,8 @@ The application uses **Retrofit** to communicate with an external maths service.
 After a quiz is completed, a mathematical expression is sent to the service and the returned result is displayed as an online verification.
 
 Network errors are handled so that failure of the online service does not prevent the user from completing the main quiz.
+
+<img src="screenshots/activity_completedquiz.png" width="220">
 
 ## Architecture
 
