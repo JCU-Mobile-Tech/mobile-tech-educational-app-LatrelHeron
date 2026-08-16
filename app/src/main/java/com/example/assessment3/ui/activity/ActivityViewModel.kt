@@ -24,6 +24,7 @@ data class ActivityUiState(
     val answerSubmitted: Boolean = false,
     val quizFinished: Boolean = false,
     val sessionSaved: Boolean = false,
+    val difficulty: String = "Normal",
     val mathCheckResult: String = "",
     val isMathCheckLoading: Boolean = false,
     val mathCheckError: Boolean = false
@@ -89,6 +90,7 @@ class ActivityViewModel(
             val difficulty = settingsRepository.difficulty.first()
 
             uiState.value = uiState.value.copy(
+                difficulty = difficulty,
                 questions = QuestionGenerator.generateSession(
                     difficulty = difficulty
                 )

@@ -60,7 +60,7 @@ fun ActivityScreen(
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Mixed Practice", fontSize = 28.sp, fontWeight = FontWeight.Bold)
+        Text(text = "${state.difficulty} Quiz", fontSize = 28.sp, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(24.dp))
         Text(text = "Question ${state.currentQuestionIndex + 1} of ${state.questions.size}")
         Spacer(modifier = Modifier.height(8.dp))
@@ -174,7 +174,7 @@ private fun QuizResultScreen(
     ) {
 
         Text(
-            text = "Practice Complete!",
+            text = "${state.difficulty} Quiz Complete!",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
         )
@@ -209,14 +209,14 @@ private fun QuizResultScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Multiplication: ${result.multiplicationCorrect}/5" +
+                    text = "Multiplication: ${result.multiplicationCorrect}/5 " +
                             "(${result.multiplicationAccuracy}%)"
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Division: ${result.divisionCorrect}/5" +
+                    text = "Division: ${result.divisionCorrect}/5 " +
                             "(${result.divisionAccuracy}%)"
                 )
             }
