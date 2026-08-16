@@ -10,6 +10,7 @@ import com.example.assessment3.domain.logic.ScoreCalculator
 import com.example.assessment3.domain.model.Question
 import com.example.assessment3.domain.model.QuestionType
 import com.example.assessment3.domain.model.QuizResult
+import com.example.assessment3.data.repository.MathFactRepository
 import kotlinx.coroutines.launch
 
 data class ActivityUiState(
@@ -21,7 +22,10 @@ data class ActivityUiState(
     val selectedAnswer: Int? = null,
     val answerSubmitted: Boolean = false,
     val quizFinished: Boolean = false,
-    val sessionSaved: Boolean = false
+    val sessionSaved: Boolean = false,
+    val mathFact: String = "",
+    val isFactLoading: Boolean = false,
+    val factError: Boolean = false
 )
 {
     val currentQuestion: Question?
@@ -30,7 +34,8 @@ data class ActivityUiState(
 
 class ActivityViewModel(
     private val quizRepository: QuizRepository,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val mathFactRepository: MathFactRepository
 ) : ViewModel()
 {
     var uiState = mutableStateOf(
@@ -97,6 +102,7 @@ class ActivityViewModel(
                 quizFinished = true,
                 sessionSaved = true
             )
+            loadMathFact(state.totalCorrect)
         } else {
             uiState.value = state.copy(
                 currentQuestionIndex = state.currentQuestionIndex + 1,
