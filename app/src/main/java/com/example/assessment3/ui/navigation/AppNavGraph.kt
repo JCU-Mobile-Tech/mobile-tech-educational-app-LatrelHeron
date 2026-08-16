@@ -17,6 +17,7 @@ import com.example.assessment3.Assessment3Application
 import com.example.assessment3.data.repository.MathFactRepository
 import com.example.assessment3.ui.settings.SettingsScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.assessment3.ui.practice.PracticeScreen
 
 @Composable
 fun AppNavGraph(
@@ -112,6 +113,13 @@ fun AppNavGraph(
                 }) }
             composable(Routes.STATISTICS) { StatisticsScreen(quizRepository = quizRepository) }
             composable(Routes.SETTINGS) { SettingsScreen(settingsRepository = settingsRepository) }
+            composable(Routes.PRACTICE) {
+                PracticeScreen(
+                    onBackHome = {
+                        navController.navigate(Routes.LANDING)
+                    }
+                )
+            }
         }
     }
 
