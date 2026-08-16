@@ -77,6 +77,7 @@ The user's current rank and progress towards the next rank are displayed on the 
 <img src="screenshots/rank_netherite.png" width="220">
 </p>
 
+## Reset rank option but at a cost
 Also the user can reset statistics at the cost of there rank
 <img src="screenshots/rank_progressrestbutton.png" width="220">
 <img src="screenshots/rank_resetc.png" width="220">
