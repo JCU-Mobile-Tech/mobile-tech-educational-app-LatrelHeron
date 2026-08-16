@@ -23,6 +23,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.data.preferences.SettingsRepository
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.graphics.Color
+
+private val ProgressGreen = Color(0xFFE3F4E8)
+private val SessionsBlue = Color(0xFFE3EEFA)
+private val QuizPurple = Color(0xFFEDE7F6)
+
+private val QuizBlue = Color(0xFF536DFE)
+private val PracticeGreen = Color(0xFF43A047)
+private val HeadingBlue = Color(0xFF3949AB)
 
 @Composable
 fun LandingScreen(
@@ -43,28 +54,31 @@ fun LandingScreen(
 
         Column(modifier = Modifier.fillMaxWidth().padding(24.dp))
         {
-            Text( text = "Maths Practice", fontSize = 30.sp, fontWeight = FontWeight.Bold)
-            Text( text = "Build your number skills", fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text( text = "Maths Practice", fontSize = 34.sp, fontWeight = FontWeight.Bold)
+            Text( text = "Build your number skills", fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(modifier = Modifier.height(28.dp))
-            Text( text = "Your Progress", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+            Text( text = "Your Progress", fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
             Spacer(modifier = Modifier.height(12.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp))
             {
                 StatisticCard(
                     value = "${state.overallAccuracy}%",
                     label = "Accuracy",
+                    containerColor = ProgressGreen,
                     modifier = Modifier.weight(1f)
                 )
                 StatisticCard(
                     value = state.sessionsCompleted.toString(),
                     label = "Sessions",
+                    containerColor = SessionsBlue,
                     modifier = Modifier.weight(1f)
                 )
             }
             Spacer(modifier = Modifier.height(32.dp))
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = QuizPurple)
             ) {
                 Column(
                     modifier = Modifier
@@ -73,16 +87,17 @@ fun LandingScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 )
             {
-                Text(text = "×  ÷", fontSize = 38.sp, fontWeight = FontWeight.Bold)
+                Text(text = "×  ÷", fontSize = 44.sp, fontWeight = FontWeight.ExtraBold, color = HeadingBlue)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "${state.difficulty} Quiz", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text(text = "${state.difficulty} Quiz", fontSize = 28.sp, fontWeight = FontWeight.ExtraBold,     color = HeadingBlue)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text( text = "Ready to test your maths skills?",
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Medium,
                     textAlign = TextAlign.Center)
                 Text(
                     text = "5 Multiplication - 5 Division",
-                    fontSize = 15.sp,
+                    fontSize = 16.sp,
                     textAlign = TextAlign.Center
                 )
                 Text(
@@ -93,26 +108,27 @@ fun LandingScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
                     onClick = onStartActivity,
-                    modifier = Modifier.fillMaxWidth()
-                ) { Text("Start Quiz") }
+                    modifier = Modifier.fillMaxWidth().height(56.dp), colors = ButtonDefaults.buttonColors(containerColor = QuizBlue)
+                ) { Text("Start Quiz", fontSize = 18.sp, fontWeight = FontWeight.Bold) }
             }
                 Spacer(modifier = Modifier.height(28.dp))
                 Text(
                     text = "Want a quick warm-up?",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = PracticeGreen
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Try 2 practice questions without affecting your score.",
-                    fontSize = 14.sp,
+                    fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Button(
                     onClick = onOpenPractice,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().height(56.dp), colors = ButtonDefaults.buttonColors(containerColor = PracticeGreen)
                 ) {
-                    Text("Quick Practice")
+                    Text("Quick Practice", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 }
         }
     }
@@ -121,12 +137,12 @@ fun LandingScreen(
 @Composable
 private fun StatisticCard( value: String, label: String, modifier: Modifier = Modifier)
 {
-    Card( modifier = modifier, shape = RoundedCornerShape(16.dp))
+    Card( modifier = modifier, shape = RoundedCornerShape(22.dp), colors = CardDefaults.cardColors(containerColor = containerColor))
     {
-        Column( modifier = Modifier.fillMaxWidth().padding(18.dp), horizontalAlignment = Alignment.CenterHorizontally)
+        Column( modifier = Modifier.fillMaxWidth().padding(34.dp), horizontalAlignment = Alignment.CenterHorizontally)
         {
-            Text( text = value, fontSize = 28.sp, fontWeight = FontWeight.Bold)
-            Text( text = label, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text( text = value, fontSize = 34.sp, fontWeight = FontWeight.ExtraBold)
+            Text( text = label, fontSize = 16.sp, fontWeight = FontWeight.Medium)
         }
     }
 }
