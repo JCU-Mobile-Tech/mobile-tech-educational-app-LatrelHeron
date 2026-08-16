@@ -1,7 +1,9 @@
 package com.example.assessment3.ui.activity
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.assessment3.data.preferences.SettingsRepository
 import com.example.assessment3.data.repository.QuizRepository
 import com.example.assessment3.domain.logic.QuestionGenerator
 import com.example.assessment3.domain.logic.ScoreCalculator
@@ -18,7 +20,8 @@ data class ActivityUiState(
     val divisionCorrect: Int = 0,
     val selectedAnswer: Int? = null,
     val answerSubmitted: Boolean = false,
-    val quizFinished: Boolean = false
+    val quizFinished: Boolean = false,
+    val sessionSaved: Boolean = false
 )
 {
     val currentQuestion: Question?
@@ -26,16 +29,31 @@ data class ActivityUiState(
 }
 
 class ActivityViewModel(
-    private val quizRepository: QuizRepository
+    private val quizRepository: QuizRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel()
 {
-    var uiState = androidx.compose.runtime.mutableStateOf(
-        ActivityUiState(
-            val sessionSaved: Boolean = false
-                questions = QuestionGenerator.generateSession()
-        )
+    var uiState = mutableStateOf(
+        ActivityUiState()
     )
         private set
+    init {
+        loadQuestions()
+    }
+
+    private fun loadQuestions() {
+        viewModelScope.launch {
+
+            val difficulty = settingsRepository.difficulty.first()
+
+            uiState.value = uiState.value.copy(
+                questions = QuestionGenerator.generateSession(
+                    difficulty = difficulty
+                )
+            )
+        }
+    }
+
     fun selectAnswer(answer: Int)
     {
         if (!uiState.value.answerSubmitted)
@@ -65,12 +83,9 @@ class ActivityViewModel(
     fun nextQuestion()
     {
         val state = uiState.value
-        if (state.currentQuestionIndex >= state.questions.lastIndex)
-        {
-            if (!state.sessionSaved)
-            {
-                viewModelScope.launch
-                {
+        if (state.currentQuestionIndex >= state.questions.lastIndex) {
+            if (!state.sessionSaved) {
+                viewModelScope.launch {
                     quizRepository.saveAttempt(
                         totalCorrect = state.totalCorrect,
                         multiplicationCorrect = state.multiplcationCorrect,
@@ -82,9 +97,7 @@ class ActivityViewModel(
                 quizFinished = true,
                 sessionSaved = true
             )
-        }
-        else
-        {
+        } else {
             uiState.value = state.copy(
                 currentQuestionIndex = state.currentQuestionIndex + 1,
                 selectedAnswer = null,
@@ -96,8 +109,8 @@ class ActivityViewModel(
         val state = uiState.value
         return ScoreCalculator.calculate(
             totalCorrect = state.totalCorrect,
-            totalQuestions = state.totalCorrect,
-            multiplicationCorrect = state.questions.size,
+            totalQuestions = state.questions.size,
+            multiplicationCorrect = state.multiplicationCorrect,
             divisionCorrect = state.divisionCorrect
         )
     }
