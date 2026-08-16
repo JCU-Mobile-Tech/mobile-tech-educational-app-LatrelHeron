@@ -7,6 +7,9 @@ class MathFactRepository(
 ) {
 
     suspend fun getMathFact(number: Int): String {
-        return apiService.getMathFact(number)
+        return apiService
+            .getMathFact(number)
+            .contents
+            .fact
     }
 }
