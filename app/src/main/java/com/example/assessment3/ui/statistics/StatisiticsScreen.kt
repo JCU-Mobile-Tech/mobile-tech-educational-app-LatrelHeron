@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
@@ -28,6 +29,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun StatisticsScreen(    quizRepository: QuizRepository
@@ -41,6 +47,16 @@ fun StatisticsScreen(    quizRepository: QuizRepository
     val state = viewModel.uiState
         .collectAsStateWithLifecycle()
         .value
+
+    val rankColor = when (state.currentRank) {
+        "Bronze" -> Color(0xFFCD7F32)
+        "Silver" -> Color(0xFFC0C0C0)
+        "Gold" -> Color(0xFFFFD700)
+        "Diamond" -> Color(0xFF67D5E8)
+        "Netherite" -> Color(0xFF4B3758)
+        else -> Color.Gray
+    }
+
     var showResetDialog by remember {
         mutableStateOf(false)
     }
@@ -50,7 +66,7 @@ fun StatisticsScreen(    quizRepository: QuizRepository
     ) {
 
         Text(
-            text = "Progress",
+            text = "Rank",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
         )
@@ -68,6 +84,14 @@ fun StatisticsScreen(    quizRepository: QuizRepository
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Icon(
+                    imageVector = Icons.Filled.Shield,
+                    contentDescription = "${state.currentRank} rank",
+                    tint = rankColor,
+                    modifier = Modifier.size(72.dp)
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
                     text = state.currentRank,
