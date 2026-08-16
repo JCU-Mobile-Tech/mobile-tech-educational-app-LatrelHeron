@@ -62,7 +62,7 @@ class ActivityViewModel(
         )
         viewModelScope.launch {
             try {
-                val fact = mathCheckRepository.checkMath(expression)
+                val result = mathCheckRepository.checkMath(expression)
 
                 uiState.value = uiState.value.copy(
                     mathCheckResult = "$expression = $result",
