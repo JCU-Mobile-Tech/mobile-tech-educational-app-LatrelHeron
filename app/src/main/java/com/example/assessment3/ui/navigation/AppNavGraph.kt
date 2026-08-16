@@ -17,7 +17,16 @@ import com.example.assessment3.data.repository.MathCheckRepository
 import com.example.assessment3.ui.settings.SettingsScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.assessment3.ui.practice.PracticeScreen
-
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.assessment3.ui.statistics.StatisticsViewModel
+import com.example.assessment3.ui.statistics.StatisticsViewModelFactory
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
@@ -27,6 +36,24 @@ fun AppNavGraph(
 ) {
     val navBackStackEntry = navController.currentBackStackEntryAsState().value
     val currentRoute = navBackStackEntry?.destination?.route
+    val statisticsViewModel: StatisticsViewModel = viewModel(
+        factory = StatisticsViewModelFactory(
+            quizRepository = quizRepository
+        )
+    )
+
+    val rankState = statisticsViewModel.uiState
+        .collectAsStateWithLifecycle()
+        .value
+
+    val rankColor = when (rankState.currentRank) {
+        "Bronze" -> Color(0xFFCD7F32)
+        "Silver" -> Color(0xFFC0C0C0)
+        "Gold" -> Color(0xFFFFD700)
+        "Diamond" -> Color(0xFF67D5E8)
+        "Netherite" -> Color(0xFF4B3758)
+        else -> Color.Gray
+    }
     Scaffold(
         bottomBar = {
             NavigationBar {
@@ -63,6 +90,23 @@ fun AppNavGraph(
                         navController.navigate(Routes.STATISTICS)
                     },
                     icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Shield,
+                            contentDescription = "${rankState.currentRank} rank",
+                            tint = rankColor
+                        )
+                    },
+                    label = {
+                        Text(rankState.currentRank)
+                    }
+                )
+                
+                NavigationBarItem(
+                    selected = currentRoute == Routes.STATISTICS,
+                    onClick = {
+                        navController.navigate(Routes.STATISTICS)
+                    },
+                    icon = {
                         Text("📊")
                     },
                     label = {
@@ -87,7 +131,9 @@ fun AppNavGraph(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Routes.LANDING
+            startDestination = Routes.LANDING,
+            modifier = Modifier.padding(innerPadding)
+
         ) {
             composable(Routes.LANDING) {
                 LandingScreen(

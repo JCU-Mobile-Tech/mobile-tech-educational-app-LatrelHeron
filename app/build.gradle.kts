@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.retrofit)
     implementation(libs.retrofit.scalars)
+    implementation(libs.androidx.compose.material.icons.extended)
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
